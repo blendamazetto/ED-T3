@@ -22,11 +22,18 @@ char *concatenacao(char dir_entrada[])
 
 int main (int argc, char *argv[])
 {
-    Lista listasObjetos[8];
+    Lista listasObjetos[10];
 
-    for (int i = 0; i < 8; i++)
+    for (int i = 0; i < 11; i++)
     {
         listasObjetos[i] = create();
+    }
+
+    Lista listasQry[9];
+
+    for (int i = 0; i < 9; i++)
+    {
+        listasQry[i] = create();
     }
     
     char *dir_entrada = NULL;
@@ -151,12 +158,10 @@ int main (int argc, char *argv[])
         saidaQry = (char*)malloc((strlen(dir_saida) + strlen(saida) + 2)*sizeof(char));
         sprintf(saidaQry,"%s-%s",saida,nomeQry);
 
-        lerQry (saidaQry,listasObjetos,arqQry);
+        lerQry (saidaQry,listasObjetos,arqQry, listasQry);
     }
 
    free(dir_entrada);
-   free(arq_geoNome);
-   free(arq_consulta);
    free(dir_saida);
    free(arqGeo);
    free(arqQry);
@@ -166,9 +171,14 @@ int main (int argc, char *argv[])
    free(saidaQry);   
    free(saida);
 
-   for (int i = 0; i < 7; i++)
+   for (int i = 0; i < 10; i++)
     {
         removeList(listasObjetos[i]);
     }  
+
+    for (int i = 0; i < 8; i++)
+    {
+        removeList(listasQry[i]);
+    }
 
 }

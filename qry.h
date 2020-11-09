@@ -11,7 +11,14 @@
 #include "svg.h"
 #include "lerQry.h"
 #include "busca.h"
+#include "posto.h"
+#include "densidade.h"
 #include <math.h>
+#include "textoNumerico.h"
+#include "linha.h"
+#include "poligono.h"
+#include "casos.h"
+
 
 
 /*
@@ -20,7 +27,7 @@
     *Retorna nada
 
 */
-void car(Lista listasObjetos[], double x, double y, double w, double h, char saidaSvg[], FILE* saida);
+void car(Lista listasObjetos[], double x, double y, double w, double h, char saidaSvg[], FILE* saida, Lista listasQry[]);
 
 /*
     *Calcula a distancia entre duas figuras
@@ -44,7 +51,7 @@ void cbq(Lista listasObjetos[], double x, double y, double r, char corb[], FILE*
     *Retorna nada
     
 */
-void i(Lista listasObjetos[], int i,  double x, double y, char saidaSvg[], FILE* saida);
+void i(Lista listasObjetos[], int i,  double x, double y, char saidaSvg[], FILE* saida, Lista listasQry[]);
 
 /*
     *Muda a cor das bordas e do preenchimento dos elementos selecionados
@@ -68,7 +75,7 @@ void delf(Lista listasObjetos[], int j, FILE* saida);
     *Retorna nada
     
 */
-void del (Lista listasObjetos[], char id[], FILE* saida, char saidaSvg[]);
+void del (Lista listasObjetos[], char id[], FILE* saida, char saidaSvg[], Lista listasQry[]);
 
 /*
     *Imprime no arquivo as coordenadas e qual o tipo de equipamento urbano e
@@ -100,7 +107,7 @@ float min(float n1, float n2);
     *Retorna nada
     
 */
-void retanguloxCirculo(Info circ, Info ret, FILE* saida, char saidaSvg[]);
+void retanguloxCirculo(Info circ, Info ret, FILE* saida, Lista listasQry[]);
 
 /*
     *Faz os calculos para ver se ha colisao entre um circulo e outro circulo
@@ -108,7 +115,7 @@ void retanguloxCirculo(Info circ, Info ret, FILE* saida, char saidaSvg[]);
     *Retorna nada
     
 */
-void circuloInt(Info c1, Info c2, FILE* saida, char saidaSvg[]);
+void circuloInt(Info c1, Info c2, FILE* saida, Lista listasQry[]);
 
 /*
     *Faz os calculos para ver se ha colisao entre um retangulo e outro retangulo
@@ -116,7 +123,7 @@ void circuloInt(Info c1, Info c2, FILE* saida, char saidaSvg[]);
     *Retorna nada
     
 */
-void retanguloInt(Info r1, Info r2, FILE* saida, char saidaSvg[]);
+void retanguloInt(Info r1, Info r2, FILE* saida, Lista listasQry[]);
 
 /*
     *Faz as comparacoes do comando o? para saber qual funcao de colisao chamar
@@ -124,7 +131,7 @@ void retanguloInt(Info r1, Info r2, FILE* saida, char saidaSvg[]);
     *Retorna nada
     
 */
-void o(int j, int k, FILE* saida, char saidaSvg[], Lista listasObjetos[]);
+void o(int j, int k, FILE* saida, Lista listasObjetos[], Lista listasQry[]);
 
 /*
     *Verifica as quadras dentro de uma certa regiao do equipamente urbano
@@ -133,7 +140,33 @@ void o(int j, int k, FILE* saida, char saidaSvg[], Lista listasObjetos[]);
     *Retorna nada
     
 */
-void dq(Lista listaObjetos[], FILE* txt, char svg_qry[], char id[], double r, int ident);
+void dq(Lista listaObjetos[], FILE* txt, char svg_qry[], char id[], double r, int ident, Lista listasQry[]);
+
+void shellSort(double *vet, int size);
+
+void soc(Lista listasObjetos[], int k, char cep[], char face[], double num, FILE* saida, Lista listasQry[]);
+
+void cv(Lista listasObjetos[], double n, char cep[], char face[], double num, Lista listasQry[]);
+
+int circIntRegiao(Densidade dd, double x, double y, double r);
+
+int pontoInternoCirc(double xPonto, double yPonto, double xCirc, double yCirc, double r);
+
+double obterArea(Lista l);
+
+Posto centroide(Lista l, double area);
+
+int orientacao(Casos a, Casos b, Casos c);
+
+int comparar(Casos p0, Casos a, Casos b);
+
+No partition(Lista l, No primeiro, No ultimo);
+
+void quickSortList(Lista l, No primeiro, No ultimo);
+
+Lista convexHull(Lista list, Lista listasObjetos[]);
+
+void ci(FILE* saida, Lista listasObjetos[], double x, double y, double r, Lista listasQry[]);
 
 
 #endif

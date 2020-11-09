@@ -17,6 +17,8 @@ typedef void* Info;
 */
 Lista create();
 
+No criarNo();
+
 /*
 *Insere um no em uma lista
 *Precisa de um void pointer info e de um void pointer lista
@@ -86,6 +88,12 @@ void removerNo(Lista lista, No no);
 *Retorna nada.
 */
 void removeList(Lista l);
+
+int tamanho(Lista listasObjetos[]);
+
+No buscarPosicao(Lista listasObjetos[], int posicao);
+
+
 
 
 #endif

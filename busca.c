@@ -99,3 +99,17 @@ No buscarRadioBase(Lista listasObjetos[], char id[])
     }
     return node=NULL; 
 }
+
+No buscarPosto(Lista listasObjetos[], int id)
+{
+    No node;
+    for(node = getFirst(listasObjetos[7]); node != NULL; node = getNext(node))
+    {
+        Info po = getInfo(node);
+        if(getPostoId(po)== id)
+        {
+            return node;
+        }     
+    }
+    return node=NULL; 
+}

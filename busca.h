@@ -8,6 +8,8 @@
 #include "radiobase.h"
 #include "semaforo.h"
 #include "quadra.h"
+#include "posto.h"
+#include "densidade.h"
 #include "lista.h"
 
 /*

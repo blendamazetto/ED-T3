@@ -48,6 +48,14 @@ void insert(Lista l, Info info)
     lista->ultimo = node;
 }
 
+No criarNo()
+{
+    NoStruct* node = (NoStruct*) malloc(sizeof(NoStruct));
+    node->info = NULL;
+
+    return node;
+}
+
 No getFirst(Lista lista)
 {
     ListaStruct* l = (ListaStruct*) lista;
@@ -169,3 +177,29 @@ void removeList(Lista l)
     }
     free(lista);
 }
+
+int tamanho(Lista listasObjetos[])
+{
+    No node;
+    int i=0;
+    for(node = getFirst(listasObjetos[7]); node != NULL; node = getNext(node))
+    {
+       i++;
+    } 
+
+    return i;
+}
+
+No buscarPosicao(Lista listasObjetos[], int posicao)
+{
+    int i=0;
+    No node;
+    for(node = getFirst(listasObjetos[7]); node != NULL; node = getNext(node))
+    {
+        if(i==posicao)
+        {
+            return node;
+        } 
+    }
+    return node=NULL; 
+} 

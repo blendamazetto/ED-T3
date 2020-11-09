@@ -9,7 +9,9 @@
 #include "quadra.h"
 #include "lista.h"
 #include "svg.h"
+#include "posto.h"
 #include "densidade.h"
+
 
 /*
 *Le o arquivo geo

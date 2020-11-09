@@ -10,6 +10,12 @@
 #include "lista.h"
 #include "svg.h"
 #include "qry.h"
+#include "posto.h"
+#include "densidade.h"
+#include "textoNumerico.h"
+#include "linha.h"
+#include "poligono.h"
+
 
 /*
     *Inicia o arquivo svg colocando o comando necessario nele
@@ -59,6 +65,9 @@ void escreveTexto(double x, double y, char cor_b[], char cor_p[], char text[], c
     *Retorna nada, fecha o svg apenas.
     * 
 */
+
+void escreveTextoNumerico(double x, double y, char cor_b[], char cor_p[], double texto, char svg[]);
+
 void desenhaQuadra(double w, double h, double x, double y, char cor_b[], char cor_p[], char cep[], char svg[], char quaExpessura[]);
 
 /*
@@ -94,6 +103,10 @@ void desenhaRadioBase(double raio, double x, double y, char cor_b[], char cor_p[
 
 void desenhaPosto(double x, double y, char svg[]);
 
+void desenhaLinha(double x1, double y1, double x2, double y2, char cor[], char svg[]);
+
+void desenhaLinhaTracejada(double x1, double y1, double x2, double y2, char svg[]);
+
 void finalizaSvg(char svg[]);
 
 /*
@@ -102,7 +115,7 @@ void finalizaSvg(char svg[]);
     *Retorna nada.
     * 
 */
-void gerarSvgQry(Lista listasObjetos[], char saidaSvg[]);
+void gerarSvgQry(Lista listasObjetos[], char saidaSvg[], Lista listasQry[]);
 
 
 #endif

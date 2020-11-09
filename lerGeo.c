@@ -7,8 +7,8 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
 {
 
     FILE *geo;
-    int id1;
-    double raio;
+    int id1, idPosto = 0;
+    double raio, distancia = 0;
     int max[5] = {1000, 1000, 1000, 1000, 1000};
     char id2[20];
     char txt[255];
@@ -61,6 +61,8 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
             Circulo circulo = criaCirculo(id1, raio, x, y, circleExpessura, borda, preenchimento);
             desenhaCirculo(raio, x, y, borda, preenchimento, nomeSvgGeo);
             insert(listasObjetos[0], circulo);
+            
+            
             n++;
         }
         else if(strcmp(tipo, "r")==0)
@@ -69,6 +71,7 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
             Retangulo retangulo = criaRetangulo(id1, w, h, x, y, rectExpessura, borda, preenchimento);
             desenhaRetangulo(w, h, x, y, borda, preenchimento, nomeSvgGeo);
             insert(listasObjetos[1], retangulo);
+            
             n++;
         }
         else if(strcmp(tipo, "t")==0)
@@ -78,7 +81,6 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
             Texto texto = criaTexto(id1, x, y, borda, preenchimento, txt);
             escreveTexto(x, y, borda, preenchimento, strtok(txt,"\n"), nomeSvgGeo);
             insert(listasObjetos[2], texto);
-            n++;
         }
         else if(strcmp(tipo, "q")==0)
         {
@@ -86,6 +88,7 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
             Quadra quadra = criaQuadra(cep, x, y, w, h, quaExpessura, Qpreenchimento, Qborda);
             desenhaQuadra(w, h, x, y, Qborda, Qpreenchimento, cep, nomeSvgGeo, quaExpessura);
             insert(listasObjetos[3], quadra);
+            
             n++;
         }
         else if(strcmp(tipo, "h")==0)
@@ -94,6 +97,7 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
             Hidrante hidrante = criaHidrante(id2, x, y, hidraExpessura, Hpreenchimento, Hborda);
             desenhaHidrante(5, x, y, Hborda, Hpreenchimento, nomeSvgGeo, hidraExpessura);
             insert(listasObjetos[4], hidrante);
+
             n++;
         }
         else if(strcmp(tipo, "s")==0)
@@ -102,6 +106,7 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
             Semaforo semaforo = criaSemaforo(id2, x, y, semaExpessura, Spreenchimento, Sborda);
             desenhaSemaforo(5, x, y, Sborda, Spreenchimento, nomeSvgGeo, semaExpessura);
             insert(listasObjetos[5], semaforo);
+            
             n++;
         }
         else if(strcmp(tipo, "rb")==0)
@@ -110,6 +115,7 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
             Radiobase radioBase = criaRadiobase(id2, x, y, radioExpessura, RBpreenchimento, RBborda);
             desenhaRadioBase(5, x, y, RBborda, RBpreenchimento, nomeSvgGeo, radioExpessura);
             insert(listasObjetos[6], radioBase);
+            
             n++;
         }
         else if(strcmp(tipo, "cq")==0)
@@ -118,7 +124,8 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
 
             strcpy(quaExpessura, expessura);
             strcpy(Qpreenchimento, preenchimento);
-            strcpy(Qborda, borda);            
+            strcpy(Qborda, borda); 
+
             n++;
         }
         else if(strcmp(tipo, "ch")==0)
@@ -127,7 +134,8 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
 
             strcpy(hidraExpessura, expessura);
             strcpy(Hpreenchimento, preenchimento);
-            strcpy(Hborda, borda);            
+            strcpy(Hborda, borda);
+
             n++;
         }
         else if(strcmp(tipo, "cr")==0)
@@ -136,7 +144,8 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
 
             strcpy(radioExpessura, expessura);
             strcpy(RBpreenchimento, preenchimento);
-            strcpy(RBborda, borda); 
+            strcpy(RBborda, borda);
+
             n++;
         }
         else if(strcmp(tipo, "cs")==0)
@@ -145,25 +154,32 @@ void lerGeo(char arqGeo[], char nomeSvgGeo[], Lista listasObjetos[])
             
             strcpy(semaExpessura, expessura);
             strcpy(Spreenchimento, preenchimento);
-            strcpy(Sborda, borda); 
+            strcpy(Sborda, borda);
+
             n++;
         }
         else if(strcmp(tipo, "sw")==0)
         {
-            fscanf(geo,"%s %s\n", circleExpessura, rectExpessura);          
+            fscanf(geo,"%s %s\n", circleExpessura, rectExpessura); 
+
             n++;
         }
         else if(strcmp(tipo, "ps")==0)
         {
-            fscanf(geo,"%lf %lf\n",x, y);
+            fscanf(geo,"%lf %lf\n",&x, &y);
+            Posto posto = criaPosto(idPosto, x, y, distancia);
             desenhaPosto(x, y, nomeSvgGeo);
+            insert(listasObjetos[7], posto);
+        
+            idPosto++;
             n++;
         }
         else if(strcmp(tipo, "dd")==0)
         {
             fscanf(geo,"%lf %lf %lf %lf %lf\n", &x, &y, &w, &h, &d);
-            Densidade densidade = criaDensidade(w,h,x,y,d);
-            insert(listasObjetos[7], densidade);
+            Densidade densidade = criaDensidade(x, y, w, h, d);
+            insert(listasObjetos[8], densidade);
+
             n++;
         }
     }
