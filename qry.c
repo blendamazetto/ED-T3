@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "qry.h"
+#include "lista.h"
 
 void car(Lista listasObjetos[], double x, double y, double w, double h, char saidaSvg[], FILE* saida, Lista listasQry[])
 {
@@ -174,21 +175,21 @@ void delf(Lista listasObjetos[], int j, FILE* saida)
     {
         Info c = getInfo(buscarCirculo(listasObjetos, j));
         fprintf(saida,"%d %lf %lf %lf %s %s \n", getCirculoI(c), getCirculoR(c), getCirculoX(c), getCirculoY(c), getCirculoCorb(c), getCirculoCorp(c));
-        removerNo(listasObjetos[0], buscarCirculo(listasObjetos, j));
+        removerNo(listasObjetos[0], buscarCirculo(listasObjetos, j), 1);
     }
 
     if(buscarRetangulo(listasObjetos, j) != NULL)
     {
         Info r = getInfo(buscarRetangulo(listasObjetos, j));
         fprintf(saida,"%d %lf %lf %lf %lf %s %s \n", getCirculoI(r), getRetanguloW(r), getRetanguloH(r), getRetanguloX(r), getRetanguloY(r), getRetanguloCorb(r), getRetanguloCorp(r));
-        removerNo(listasObjetos[1], buscarRetangulo(listasObjetos, j));
+        removerNo(listasObjetos[1], buscarRetangulo(listasObjetos, j), 1);
     }
 
     if(buscarTexto(listasObjetos, j) != NULL)
     {
         Info t = getInfo(buscarTexto(listasObjetos, j));
         fprintf(saida,"%d %lf %lf %s %s %s\n",getTextoI(t), getTextoX(t), getTextoY(t), getTextoCorb(t), getTextoCorp(t), getTextoTxto(t));
-        removerNo(listasObjetos[2], buscarTexto(listasObjetos, j));
+        removerNo(listasObjetos[2], buscarTexto(listasObjetos, j), 1);
     }
 }
 
@@ -208,7 +209,7 @@ void del (Lista listasObjetos[], char id[], FILE* saida, char saidaSvg[], Lista 
         Texto text = criaTexto(0, getQuadraX(q)+getQuadraW(q)/2, 0, "black", "black", getQuadraCep(q));
         insert(listasQry[4], text);
 
-        removerNo(listasObjetos[3], buscarQuadra(listasObjetos, id));
+        removerNo(listasObjetos[3], buscarQuadra(listasObjetos, id), 1);
     }
 
     if(buscarHidrante(listasObjetos, id) != NULL)
@@ -222,7 +223,7 @@ void del (Lista listasObjetos[], char id[], FILE* saida, char saidaSvg[], Lista 
         Texto text = criaTexto(0, getHidranteX(h), 0, "black", "black", getHidranteId(h));
         insert(listasQry[4], text);
 
-        removerNo(listasObjetos[4], buscarHidrante(listasObjetos, id));
+        removerNo(listasObjetos[4], buscarHidrante(listasObjetos, id), 1);
     }
 
     if(buscarSemaforo(listasObjetos, id) != NULL)
@@ -236,7 +237,7 @@ void del (Lista listasObjetos[], char id[], FILE* saida, char saidaSvg[], Lista 
         Texto text = criaTexto(0, getSemaforoX(s), 0, "black", "black", getSemaforoId(s));
         insert(listasQry[4], text);
 
-        removerNo(listasObjetos[5], buscarSemaforo(listasObjetos, id));
+        removerNo(listasObjetos[5], buscarSemaforo(listasObjetos, id), 1);
     }
 
     if(buscarRadioBase(listasObjetos, id) != NULL)
@@ -250,7 +251,7 @@ void del (Lista listasObjetos[], char id[], FILE* saida, char saidaSvg[], Lista 
         Texto text = criaTexto(0, getRadiobaseX(rb), 0, "black", "black", getRadiobaseId(rb));
         insert(listasQry[4], text);
 
-        removerNo(listasObjetos[6], buscarRadioBase(listasObjetos, id));
+        removerNo(listasObjetos[6], buscarRadioBase(listasObjetos, id), 1);
     }
 
     fclose(svgQry);
@@ -563,7 +564,7 @@ void dq(Lista listaObjetos[], FILE* txt, char svg_qry[], char id[], double r, in
             fprintf(txt,"%s\n", getQuadraCep(info));
             aux = node;
             node = getNext(node);
-            removerNo(listaObjetos[3], aux);
+            removerNo(listaObjetos[3], aux, 1);
         }
         else{
             node = getNext(node);
@@ -848,45 +849,52 @@ Lista convexHull(Lista list, Lista listasObjetos[])
 
     int j = 1;
 
-    for(i = getNext(primeiro); i != NULL; i = getNext(i))
+
+    for(i = getNext(getNext(primeiro)); i != NULL; i = getNext(i))
     {
         p1 = getInfo(i);
         p2 = getInfo(getPrevious(i));
+
         if(orientacao(getInfo(primeiro),p1,p2) == 0)
         {
-            removerNo(list, getPrevious(i));
+            printf("%d", primeiro==getPrevious(i));
+            removerNo(list, getPrevious(i), 0);
         }
         else
         {
             j++;
         }
     }
+
+        
     if (j < 3)
     {
         return NULL;
     }
-    
-    for(i = getFirst(list); i != NULL; i = getNext(i))
+
+    Lista envConv = create();
+
+    i = primeiro;
+
+    for(j = 0; j < 3; j++)
     {
-        insert(listasObjetos[10],getInfo(i));
-    }
-    
-    while(i != NULL)
-    {
-        while (orientacao(getInfo(getPrevious(getLast(listasObjetos[10]))), getInfo(getLast(listasObjetos[10])), getInfo(i)) != 1)
-        {
-            removerNo(listasObjetos[10],getLast(listasObjetos[10]));
-        }
-        insert(listasObjetos[10],getInfo(i));
+        insert(envConv,getInfo(i));
         i = getNext(i);
     }
-    return listasObjetos[10];
-    
+    while(i != NULL)
+    {
+        while (orientacao(getInfo(getPrevious(getLast(envConv))), getInfo(getLast(envConv)), getInfo(i)) != 1)
+        {
+            removerNo(envConv,getLast(envConv), 0);
+        }
+        insert(envConv,getInfo(i));
+        i = getNext(i);
+    }
+    return envConv;    
 }
 
-void ci(FILE* saida, Lista listasObjetos[], double x, double y, double r, Lista listasQry[])
+void ci(FILE* saida, Lista listasObjetos[], double x, double y, double r, Lista listasQry[], Lista poligonos)
 {
-
     No node;
     Info fig;
     int flag = 1, n = 0;
@@ -904,7 +912,7 @@ void ci(FILE* saida, Lista listasObjetos[], double x, double y, double r, Lista 
             break;
         }
     }
-    insert(listasQry[3], criaCirculo(0, r, x, y, "5px", "green", "none"));
+    insert(listasQry[3], criaCirculo(0, r, x, y, "4", "green", "none"));
 
     if(flag)
     {
@@ -916,9 +924,8 @@ void ci(FILE* saida, Lista listasObjetos[], double x, double y, double r, Lista 
     for(node = getFirst(listasObjetos[9]); node != NULL; node = getNext(node))
     {
         fig = getInfo(node);
-        int i =0;
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        if(i==0)
+
+        if(pontoInternoCirc(getCasosX(fig),getCasosY(fig),x,y,r))
         {
             insert(l,fig);
             fprintf(saida,"X : %lf y : %lf\n", getCasosX(fig),getCasosY(fig));
@@ -929,6 +936,7 @@ void ci(FILE* saida, Lista listasObjetos[], double x, double y, double r, Lista 
     if(getFirst(l) == NULL)
     {
         printf("Não foram encontrado casos na região\n");
+        free(l);
         return;
     }
 
@@ -940,7 +948,7 @@ void ci(FILE* saida, Lista listasObjetos[], double x, double y, double r, Lista 
     }
     else
     {
-        removeList(l);
+        removeList(l, 0);
     }
 
     area = obterArea(casos);
@@ -996,18 +1004,22 @@ void ci(FILE* saida, Lista listasObjetos[], double x, double y, double r, Lista 
     {
         fprintf(saida,"Não é possivel obter a categoria da região, apenas um caso dentro do circulo\n");
     }
-    /*
-    int tamanho=0;
 
-    for(node = getFirst(casos); node != NULL; node = getNext(node))
+    int tamanho = tamanhoDaLista(casos);
+
+    No no = getFirst(casos);
+
+    Info inf = criaPoligono(cor, tamanho);
+
+    insert(listasQry[8], inf);
+
+    for(int cont =0; cont<tamanho; cont++)
     {
-        fig = getInfo(node);
-        insert(listasQry[8], criaPoligono(getCasosX(fig), getCasosY(fig), cor, tamanho));
-        tamanho++;
+        Info aux = getInfo(no);
+        setPoligonoX(inf, getCasosX(aux), cont);
+        setPoligonoY(inf, getCasosY(aux), cont);
+
+        no = getNext(no);
     }
-
-    removeList(casos);
-    */
-
 }
 

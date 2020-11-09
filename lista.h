@@ -80,16 +80,16 @@ void insertBefore(Lista lista, No node, Info info);
 *Precisa da lista e do no a ser excluido
 *Retorna nada. 
 */
-void removerNo(Lista lista, No no);
+void removerNo(Lista lista, No no, int flag);
 
 /*
 *Remove as listas liberando a memoria
 *Precisa da lista
 *Retorna nada.
 */
-void removeList(Lista l);
+void removeList(Lista l, int flag);
 
-int tamanho(Lista listasObjetos[]);
+int tamanhoDaLista(Lista listasObjetos);
 
 No buscarPosicao(Lista listasObjetos[], int posicao);
 

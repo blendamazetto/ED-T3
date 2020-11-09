@@ -74,7 +74,5 @@ No buscarRadioBase(Lista listasObjetos[], char id[]);
     *Retorna nada
     
 */
-void removerNo(Lista lista, No no);
-
 
 #endif

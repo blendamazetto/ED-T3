@@ -5,35 +5,35 @@
 
 typedef struct p
 {
-    double x;
-    double y;
+    double* x;
+    double* y;
     char cor[22];
     int tamanho;
 
 }PoligonoStruct;
 
-Poligono criaPoligono(double x, double y, char cor[], int tamanho)
+Poligono criaPoligono(char cor[], int tamanho)
 {
     PoligonoStruct* poli = (PoligonoStruct*) malloc(sizeof(PoligonoStruct));
 
-    poli->x = x;
-    poli->y = y;
+    poli->x = (double*)malloc(sizeof(double)*tamanho);
+    poli->y = (double*)malloc(sizeof(double)*tamanho);
     strcpy(poli->cor, cor);
     poli->tamanho = tamanho;
 
     return poli;
 }
 
-double getPoligonoX(Poligono poli)
+double getPoligonoX(Poligono poli, int index)
 {
     PoligonoStruct* p = (PoligonoStruct*) poli;
-    return p->x;
+    return p->x[index];
 }
 
-double getPoligonoY(Poligono poli)
+double getPoligonoY(Poligono poli, int index)
 {
     PoligonoStruct* p = (PoligonoStruct*) poli;
-    return p->y;
+    return p->y[index];
 }
 
 char* getPoligonoCor(Poligono poli)
@@ -47,3 +47,16 @@ int getPoligonoTamanho(Poligono poli)
     PoligonoStruct* p = (PoligonoStruct*) poli;
     return p->tamanho;
 }
+
+void setPoligonoX(Poligono poli, double x, int index)
+{
+    PoligonoStruct* p = (PoligonoStruct*) poli;
+    p->x[index] = x;
+}
+
+void setPoligonoY(Poligono poli, double y, int index)
+{
+    PoligonoStruct* p = (PoligonoStruct*) poli;
+    p->y[index] = y;
+}
+

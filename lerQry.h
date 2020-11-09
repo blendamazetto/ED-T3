@@ -24,6 +24,6 @@
 *precisa do nome do arquivo qry e a lista
 *não retorna nada
 */
-void lerQry (char saidaQry[], Lista listasObjetos[], char arqQry[], Lista listasQry);
+void lerQry (char saidaQry[], Lista listasObjetos[], char arqQry[], Lista listasQry,Lista poligonos);
 
 #endif

@@ -14,6 +14,7 @@ typedef struct lista{
 
     NoStruct *primeiro;
     NoStruct *ultimo;
+    int tamanho;
 
 }ListaStruct;
 
@@ -22,6 +23,7 @@ Lista create()
     ListaStruct* lista = (ListaStruct*) malloc(sizeof(ListaStruct));
     lista->primeiro = NULL;
     lista->ultimo = NULL;
+    lista->tamanho = 0;
     return lista;
 }
 
@@ -46,6 +48,8 @@ void insert(Lista l, Info info)
     
     node->proximo = NULL;
     lista->ultimo = node;
+
+    lista->tamanho++;
 }
 
 No criarNo()
@@ -109,6 +113,8 @@ void insertAfter(Lista lista, No node, Info info)
         aux->anterior = novo;
     }
 
+    lis->tamanho++;
+
 }
 
 void insertBefore(Lista lista, No node, Info info)
@@ -134,9 +140,11 @@ void insertBefore(Lista lista, No node, Info info)
         novo->anterior = aux;
         aux->proximo = novo;
     }
+
+    lis->tamanho++;
 }
 
-void removerNo(Lista lista, No no)
+void removerNo(Lista lista, No no, int flag)
 {
     ListaStruct* l = (ListaStruct*) lista;
     NoStruct* node = (NoStruct*) no;
@@ -158,11 +166,14 @@ void removerNo(Lista lista, No no)
         node->proximo->anterior = node->anterior;
     }
 
-    free(getInfo(node));
+    if (flag) free(getInfo(node));
     free(node);
+
+    l->tamanho--;
+
 }
 
-void removeList(Lista l)
+void removeList(Lista l, int flag)
 {
     ListaStruct* lista = (ListaStruct*) l;
     NoStruct* node = lista->primeiro;
@@ -172,22 +183,19 @@ void removeList(Lista l)
     {
         aux = node;
         node = node->proximo;
-        free(getInfo(aux));
+        if(flag)
+        {
+            free(getInfo(aux));
+        }
         free(aux);
     }
     free(lista);
 }
 
-int tamanho(Lista listasObjetos[])
+int tamanhoDaLista(Lista listasObjetos)
 {
-    No node;
-    int i=0;
-    for(node = getFirst(listasObjetos[7]); node != NULL; node = getNext(node))
-    {
-       i++;
-    } 
-
-    return i;
+    ListaStruct* lis = (ListaStruct*) listasObjetos;
+    return lis->tamanho;
 }
 
 No buscarPosicao(Lista listasObjetos[], int posicao)

@@ -7,7 +7,6 @@
 #include "radiobase.h"
 #include "semaforo.h"
 #include "quadra.h"
-#include "lista.h"
 #include "svg.h"
 #include "lerQry.h"
 #include "busca.h"
@@ -166,7 +165,7 @@ void quickSortList(Lista l, No primeiro, No ultimo);
 
 Lista convexHull(Lista list, Lista listasObjetos[]);
 
-void ci(FILE* saida, Lista listasObjetos[], double x, double y, double r, Lista listasQry[]);
+void ci(FILE* saida, Lista listasObjetos[], double x, double y, double r, Lista listasQry[], Lista poligonos);
 
 
 #endif

@@ -427,38 +427,22 @@ void gerarSvgQry(Lista listasObjetos[], char saidaSvg[], Lista listasQry[])
         } 
         i++;
     }
-    if(i==7)
-    {
-        int cont;
-        No node;
-        for(node = getFirst(listasQry[i]); node != NULL; node = getNext(node))
-        {
-            printf("%d", cont);
-            cont++;
-        }
-
-        i++;
-    }
-
-
-
-    /*if(i==8)
+    if(i==8)
     {
         FILE *svg= fopen(saidaSvg, "a");
 
-        No no = getFirst(listasQry[i]);
-        Info p = getInfo(no);
-        
-        fprintf(svg,"\t<polygon id=\"%d\" fill=\"%s\" fill-opacity=\"0.2\" stroke=\"red\" stroke-width=\"5px\" points=\"", getPoligonoTamanho(getInfo(getLast(listasQry[i]))), getPoligonoCor(p));
-
         No node;
         for(node = getFirst(listasQry[i]); node != NULL; node = getNext(node))
         {
-            Info poli = getInfo(node);
-            fprintf(svg," %lf,%lf", getPoligonoX(poli), getPoligonoY(poli));
-        } 
+            Info p = getInfo(node);
+            fprintf(svg,"\t<polygon id=\"%d\" fill=\"%s\" fill-opacity=\"0.2\" stroke=\"red\" stroke-width=\"5px\" points=\"", getPoligonoTamanho(getInfo(getLast(listasQry[i]))), getPoligonoCor(p));
 
-        fprintf(svg," \"/>\n");
+            for(int aux=0; aux < getPoligonoTamanho(p); aux++)
+            {
+                fprintf(svg," %lf,%lf", getPoligonoX(p, aux), getPoligonoY(p, aux));
+            }
+            fprintf(svg," \"/>\n");
+        }
         fclose(svg);
-    }*/
+    }
 }

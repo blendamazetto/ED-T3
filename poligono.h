@@ -3,15 +3,18 @@
 
 typedef void* Poligono;
 
-Poligono criaPoligono(double x, double y, char cor[], int tamanho);
+Poligono criaPoligono(char cor[], int tamanho);
 
-double getPoligonoX(Poligono poli);
+double getPoligonoX(Poligono poli, int index);
 
-double getPoligonoY(Poligono poli);
+double getPoligonoY(Poligono poli, int index);
 
 char* getPoligonoCor(Poligono poli);
 
 int getPoligonoTamanho(Poligono poli);
 
+void setPoligonoX(Poligono poli, double x, int index);
+
+void setPoligonoY(Poligono poli, double y, int index);
 
 #endif
