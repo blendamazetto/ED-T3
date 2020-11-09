@@ -163,9 +163,9 @@ No partition(Lista l, No primeiro, No ultimo);
 
 void quickSortList(Lista l, No primeiro, No ultimo);
 
-Lista convexHull(Lista list, Lista listasObjetos[]);
+Lista envoltoria(Lista list);
 
-void ci(FILE* saida, Lista listasObjetos[], double x, double y, double r, Lista listasQry[], Lista poligonos);
+void ci(FILE* saida, Lista listasObjetos[], double x, double y, double r, Lista listasQry[]);
 
 
 #endif

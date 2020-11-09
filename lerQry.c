@@ -3,7 +3,7 @@
 #include <string.h>
 #include "lerQry.h"
 
-void lerQry (char saidaQry[], Lista listasObjetos[], char arqQry[], Lista listasQry, Lista poligonos)
+void lerQry (char saidaQry[], Lista listasObjetos[], char arqQry[], Lista listasQry)
 {
     char* saidaTxt = malloc((5 + strlen(saidaQry))*sizeof(char));
     char* saidaSvg = malloc((5 + strlen(saidaQry))*sizeof(char));
@@ -140,7 +140,7 @@ void lerQry (char saidaQry[], Lista listasObjetos[], char arqQry[], Lista listas
         {
             fscanf(qry,"%lf %lf %lf",&x, &y, &r);
             fprintf(saida,"%s %lf %lf %lf\n",tipo, x, y, r);
-            ci(saida, listasObjetos, x, y, r, listasQry, poligonos);
+            ci(saida, listasObjetos, x, y, r, listasQry);
         }
     }
 

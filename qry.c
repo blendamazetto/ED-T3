@@ -782,13 +782,13 @@ int orientacao(Casos a, Casos b, Casos c)
 
     if(area > 1)
     {
-        return 1; //anti-horario
+        return 1;
     }
     if(area < 1)
     {
-        return -1; //horario
+        return -1;
     }
-    return 0; //colinear
+    return 0;
 }
 
 int comparar(Casos p0, Casos a, Casos b)
@@ -827,7 +827,7 @@ void quickSortList(Lista l, No primeiro, No ultimo)
     }
 }
 
-Lista convexHull(Lista list, Lista listasObjetos[])
+Lista envoltoria(Lista list)
 {
     No primeiro = getFirst(list), i;
     Casos p2;
@@ -849,7 +849,6 @@ Lista convexHull(Lista list, Lista listasObjetos[])
 
     int j = 1;
 
-
     for(i = getNext(getNext(primeiro)); i != NULL; i = getNext(i))
     {
         p1 = getInfo(i);
@@ -857,7 +856,6 @@ Lista convexHull(Lista list, Lista listasObjetos[])
 
         if(orientacao(getInfo(primeiro),p1,p2) == 0)
         {
-            printf("%d", primeiro==getPrevious(i));
             removerNo(list, getPrevious(i), 0);
         }
         else
@@ -865,7 +863,6 @@ Lista convexHull(Lista list, Lista listasObjetos[])
             j++;
         }
     }
-
         
     if (j < 3)
     {
@@ -893,7 +890,7 @@ Lista convexHull(Lista list, Lista listasObjetos[])
     return envConv;    
 }
 
-void ci(FILE* saida, Lista listasObjetos[], double x, double y, double r, Lista listasQry[], Lista poligonos)
+void ci(FILE* saida, Lista listasObjetos[], double x, double y, double r, Lista listasQry[])
 {
     No node;
     Info fig;
@@ -919,6 +916,7 @@ void ci(FILE* saida, Lista listasObjetos[], double x, double y, double r, Lista 
         printf("O circulo não está dentro de uma região onde a densidade demografica e conhecida");
         return;
     }
+    
     Lista l = create();
 
     for(node = getFirst(listasObjetos[9]); node != NULL; node = getNext(node))
@@ -940,8 +938,17 @@ void ci(FILE* saida, Lista listasObjetos[], double x, double y, double r, Lista 
         return;
     }
 
-    Lista casos = convexHull(l, listasObjetos);
+    Lista casos;
 
+    if(tamanhoDaLista(l) < 3)
+    {
+        casos = NULL;
+    }
+    else
+    {
+        casos = envoltoria(l);
+    }
+    
     if(casos == NULL)
     {
         casos = l;

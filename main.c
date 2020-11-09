@@ -35,8 +35,6 @@ int main (int argc, char *argv[])
     {
         listasQry[i] = create();
     }
-
-    Lista poligonos = create();
     
     char *dir_entrada = NULL;
     char *arq_geoNome = NULL;
@@ -160,7 +158,7 @@ int main (int argc, char *argv[])
         saidaQry = (char*)malloc((strlen(dir_saida) + strlen(saida) + 2)*sizeof(char));
         sprintf(saidaQry,"%s-%s",saida,nomeQry);
 
-        lerQry (saidaQry,listasObjetos,arqQry, listasQry, poligonos);
+        lerQry (saidaQry,listasObjetos,arqQry, listasQry);
     }
 
    free(dir_entrada);
@@ -178,7 +176,7 @@ int main (int argc, char *argv[])
         removeList(listasObjetos[i], 1);
     }  
 
-    for (int i = 0; i < 8; i++)
+    for (int i = 0; i < 9; i++)
     {
         removeList(listasQry[i], 1);
     }
