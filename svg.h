@@ -47,7 +47,6 @@ void desenhaRetanguloTracejado(double w, double h, double x, double y, char cor_
     *Retorna nada, fecha o svg apenas.
     * 
 */
-
 void desenhaRetangulo(double w, double h, double x, double y, char cor_b[], char cor_p[], char svg[]);
 
 /*
@@ -56,8 +55,15 @@ void desenhaRetangulo(double w, double h, double x, double y, char cor_b[], char
     *Retorna nada, fecha o svg apenas.
     * 
 */
-
 void escreveTexto(double x, double y, char cor_b[], char cor_p[], char text[], char svg[]);
+
+/*
+    *Escreve um texto do tipo numerico no arquivo svg, colcocando o comando adequado para isso
+    *E passado como parametro todos os dados necessarios para o texto e o arquivo svg para ser aberto
+    *Retorna nada, fecha o svg apenas.
+    * 
+*/
+void escreveTextoNumerico(double x, double y, char cor_b[], char cor_p[], double texto, char svg[]);
 
 /*
     *Desenha uma quadra no arquivo svg, colcocando o comando adequado para isso
@@ -65,9 +71,6 @@ void escreveTexto(double x, double y, char cor_b[], char cor_p[], char text[], c
     *Retorna nada, fecha o svg apenas.
     * 
 */
-
-void escreveTextoNumerico(double x, double y, char cor_b[], char cor_p[], double texto, char svg[]);
-
 void desenhaQuadra(double w, double h, double x, double y, char cor_b[], char cor_p[], char cep[], char svg[], char quaExpessura[]);
 
 /*
@@ -95,18 +98,35 @@ void desenhaSemaforo(double raio, double x, double y, char cor_b[], char cor_p[]
 void desenhaRadioBase(double raio, double x, double y, char cor_b[], char cor_p[], char svg[], char radioExpessura[]);
 
 /*
+    *Desenha um posto no arquivo svg, colcocando o comando adequado para isso
+    *E passado como parametro todos os dados necessarios para a criacao do posto, o arquivo svg para ser aberto
+    *Retorna nada, fecha o svg apenas.
+    * 
+*/
+void desenhaPosto(double x, double y, char svg[]);
+
+/*
+    *Desenha uma linha no arquivo svg, colcocando o comando adequado para isso
+    *E passado como parametro todos os dados necessarios para a linha, o arquivo svg para ser aberto
+    *Retorna nada, fecha o svg apenas.
+    * 
+*/
+void desenhaLinha(double x1, double y1, double x2, double y2, char cor[], char svg[]);
+
+/*
+    *Desenha uma linha tracejada no arquivo svg, colcocando o comando adequado para isso
+    *E passado como parametro todos os dados necessarios para a linha tracejada, o arquivo svg para ser aberto
+    *Retorna nada, fecha o svg apenas.
+    * 
+*/
+void desenhaLinhaTracejada(double x1, double y1, double x2, double y2, char svg[]);
+
+/*
     *Finaliza o arquivo svg colocando o comando necessario nele
     *Apenas o arquivo svg a ser aberto e passado como parametro
     *Retorna nada, fecha o svg apenas.
     * 
 */
-
-void desenhaPosto(double x, double y, char svg[]);
-
-void desenhaLinha(double x1, double y1, double x2, double y2, char cor[], char svg[]);
-
-void desenhaLinhaTracejada(double x1, double y1, double x2, double y2, char svg[]);
-
 void finalizaSvg(char svg[]);
 
 /*

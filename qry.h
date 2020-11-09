@@ -134,37 +134,105 @@ void o(int j, int k, FILE* saida, Lista listasObjetos[], Lista listasQry[]);
 
 /*
     *Verifica as quadras dentro de uma certa regiao do equipamente urbano
-    *Precizamos do void pointer com as listas, os dois arquivos de saida como parametro para a funcao, o id de 
+    *Precizamos do void pointer com as listas, os dois arquivos de s aida como parametro para a funcao, o id de 
     *identificacao, a distancia e o identificador para saber se ha ou nao um # no comando
     *Retorna nada
     
 */
 void dq(Lista listaObjetos[], FILE* txt, char svg_qry[], char id[], double r, int ident, Lista listasQry[]);
 
+/*
+    *Ordena um vetor
+    *Precisamos de um ponteiro para um vetor e o tamanho do vetor
+    *Retorna nada
+    
+*/
 void shellSort(double *vet, int size);
 
+/*
+    *Comando soc do QRY
+    *Precisamos dos parametros passados no comando, a lista que contem os postos e parametros pra gerar as saidas 
+    *Retorna nada
+    
+*/
 void soc(Lista listasObjetos[], int k, char cep[], char face[], double num, FILE* saida, Lista listasQry[]);
 
+/*
+    *Faz contas para colocar um retangulo laranja na face determinada no comando
+    *Precisamos de um void ointer com as listas, os dois arquivos de saida como parametro para a funcao
+    *Alem dos dados necessarios para a criacao do retangulo
+    *Retorna nada
+*/
 void cv(Lista listasObjetos[], double n, char cep[], char face[], double num, Lista listasQry[]);
 
+/*
+    *Faz contas para saber se um circulo e interno na regiao
+    *Precisamos de da densidade e os eixos x, y e o raio para o circulo
+    *Retorna 1 para caso verdadeiro e 0 para falso
+*/
 int circIntRegiao(Densidade dd, double x, double y, double r);
 
+/*
+    *Faz contas para saber se ha um ponto interno no circulo
+    *Precisamos dos eixos x, y de ambos Ponto e Circulo e do raio do circulo
+    *Retorna a distancia
+*/
 int pontoInternoCirc(double xPonto, double yPonto, double xCirc, double yCirc, double r);
 
+/*
+    *Faz as contas necessarias para obter a area da regiao
+    *Precisamos de um void pointer para lista
+    *Retorna a area
+*/
 double obterArea(Lista l);
 
+/*
+    *Faz contas para saber o centroide em uma determinada regiao
+    *Precisamos de um void pointer para lista e da area
+    *Retorna a funcao criaPosto com dados obtidos 
+*/
 Posto centroide(Lista l, double area);
 
+/*
+    *Faz contas para saber a orientacao 
+    *Precisamos de tres elementos para calculo da area
+    *Retorna 1 para area > 1, -1 para area <1 e 0 caso nao satisfaca nenhum dos dois
+*/
 int orientacao(Casos a, Casos b, Casos c);
 
+/*
+    *Faz contas para saber a comparacao entre tres pontos
+    *Precisamos de tres elementos
+    *Retorna a funcao de distancia caso aux == 0 ou aux == 1
+*/
 int comparar(Casos p0, Casos a, Casos b);
 
+/*
+    *Faz contas para saber a particao de dois pontos
+    *Precisamos de um void pointer para lista e dois pontos primeiro e ultimo
+    *Retorna i do tipo No
+*/
 No partition(Lista l, No primeiro, No ultimo);
 
+/*
+    *Faz utilizacao de recursividade e implementa quicksort
+    *Precisamos de um void pointer para lista e de dois nos primeiro e ultimo
+    *Nao retorna nada
+*/
 void quickSortList(Lista l, No primeiro, No ultimo);
 
+/*
+    *Faz contas para a envoltoria convexa
+    *Precisamos de um void pointer para lista
+    *Retorna o resultado da envoltoria convexa
+*/
 Lista envoltoria(Lista list);
 
+/*
+    *Utilizando funcoes determinadas implementa o comando ci
+    *Precisamos de um void pointer para lista os eixos e raio e tambem o documento de saida
+    *Nao retorna nada
+*/
 void ci(FILE* saida, Lista listasObjetos[], double x, double y, double r, Lista listasQry[]);
 
 

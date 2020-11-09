@@ -17,6 +17,11 @@ typedef void* Info;
 */
 Lista create();
 
+/*
+*Cria um no
+*Não precisa de parametros
+*Retorna um no
+*/
 No criarNo();
 
 /*
@@ -89,8 +94,18 @@ void removerNo(Lista lista, No no, int flag);
 */
 void removeList(Lista l, int flag);
 
+/*
+*Obtem o tamanho da lista
+*Precisa de parametro de listasObjetos
+*Retorna o tamanho da lista
+*/
 int tamanhoDaLista(Lista listasObjetos);
 
+/*
+*Obtem a posicao para um determinado no
+*Precisa de parametro de listasObjetos e a posicao desejada
+*Retorna o no buscado caso achado ou um no igual a NULL caso nao encontrado
+*/
 No buscarPosicao(Lista listasObjetos[], int posicao);
 
 

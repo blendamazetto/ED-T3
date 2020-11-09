@@ -913,7 +913,6 @@ void ci(FILE* saida, Lista listasObjetos[], double x, double y, double r, Lista 
 
     if(flag)
     {
-        printf("O circulo não está dentro de uma região onde a densidade demografica e conhecida");
         return;
     }
     
@@ -933,7 +932,6 @@ void ci(FILE* saida, Lista listasObjetos[], double x, double y, double r, Lista 
 
     if(getFirst(l) == NULL)
     {
-        printf("Não foram encontrado casos na região\n");
         free(l);
         return;
     }
